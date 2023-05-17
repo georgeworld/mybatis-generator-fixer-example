@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.georgeinfo.maven.plugin</groupId>
+    <artifactId>mybatis-generator-fixer-example</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>mybatis generator fixer plugin example</name>
+    <url>http://www.georgeinfo.com</url>
+
+    <properties>
+        <mysql-driver.version>8.0.33</mysql-driver.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-driver.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <id>Generate MyBatis Artifacts</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <overwrite>true</overwrite>
+                    <configurationFile>src/main/resources/mybatis/config/generatorConfig.xml</configurationFile>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.20</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>com.georgeinfo.maven.plugin</groupId>
+                <artifactId>mybatis-generator-fixer</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <configuration>
+                    <!-- maven 内置属性:项目根路径 -->
+                    <basedir>${basedir}</basedir>
+                    <scanPackage>com.georgeinfo.dao.model</scanPackage>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
